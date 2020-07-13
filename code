@@ -1,0 +1,66 @@
+def run_coffee_machine():
+    available = {'water':400, 'milk':540, 'beans':120, 'money':550, 'cups':9}
+
+    def update(dict_of_values):
+        print('The coffee machine has:')
+        print(available['water'], 'of water')
+        print(available['milk'], 'of milk')
+        print(available['beans'], 'of coffee beans')
+        print(available['cups'], 'of disposable cups')
+        print(available['money'], 'of money')
+
+    update(available)
+
+    options = ['buy', 'fill', 'take']
+    option = input('Write action (buy, fill, take):')
+    while True:
+        if option in options:
+            break
+        else:
+            print('Please pick a listed option: "buy", "fill", "take"')
+            continue
+            
+    coffee_types = {'espresso':{'water':250, 'beans':16, 'money':4}, 'latte':{'water':350, 'milk':75, 'beans':20, 'money':7}, 'cappuccino':{'water':200, 'milk':100, 'beans':12, 'money':6}}
+    if option == options[0]:
+        coffee_type = int(input('What do you want to buy? 1 - espresso, 2 - latte, 3 - cappuccino:'))
+        while True:
+            if coffee_type in [1,2,3]:
+                break
+            else:
+                print('That is not an option, please pick a value 1-3')
+                continue
+        if coffee_type == 1:
+            values = coffee_types['espresso']
+            available['water'] -= values['water']
+            available['beans'] -= values['beans']
+            available['cups'] -= 1
+            available['money'] -= values['money']
+        elif coffee_type == 2:
+            values = coffee_types['latte']
+            available['water'] -= values['water']
+            available['milk'] -= values['milk']
+            available['beans'] -= values['beans']
+            available['cups'] -= 1
+            available['money'] -= values['money']
+        else:
+            values = coffee_types['cappuccino']
+            available['water'] -= values['water']
+            available['milk'] -= values['milk']
+            available['beans'] -= values['beans']
+            available['cups'] -= 1
+            available['money'] -= values['money']
+        update(available)        
+    
+    if option == options[1]:
+        available['water'] += int(input('Write how many ml of water do you want to add:'))
+        available['milk'] += int(input('Write how many ml of milk do you want to add:'))
+        available['beans'] += int(input('Write how many grams of coffee beans do you want to add:'))
+        available['cups'] += int(input('Write how many disposable cups do you want to add:'))
+        update(available)
+
+    if option == options[2]:
+        print('I gave you $', available['money'])
+        available['money'] = 0
+        update(available)
+
+run_coffee_machine()
